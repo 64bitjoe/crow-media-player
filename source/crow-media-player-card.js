@@ -156,7 +156,8 @@ function crowMediaRelays() { return crowMediaBridge.on ? [] : CROW_MEDIA_RELAYS;
 const CROW_MEDIA_BASE = (() => { try { return new URL('.', document.currentScript.src).href; } catch (_) { return '/' + CROW_MEDIA_DOMAIN + '/'; } })();
 const CROW_MEDIA_FILES = { editor: 'crow-media-editor.js', fullscreen: 'crow-media-fullscreen.js', pdf: 'crow-media-pdf.js', saver: 'crow-media-screensaver.js', viz: 'crow-media-visualiser.js',
   video: 'crow-media-video.js', panels: 'crow-media-panels.js', library: 'crow-media-library.js', sendspin: 'crow-media-sendspin.js',
-  youtube: 'crow-media-youtube.js' }; // fork: youtube
+  youtube: 'crow-media-youtube.js', // fork: youtube
+  atvkb: 'crow-media-atv-keyboard.js' }; // fork: Apple TV keyboard
 function crowMediaLoad(mod) {
   const loads = window.__crowMediaLoads || (window.__crowMediaLoads = {});
   if (window.CrowMediaKit?.ready?.[mod]) return Promise.resolve();
@@ -22154,6 +22155,7 @@ class CrowMediaPlayerCard extends HTMLElement {
   // watching the sibling binary_sensor's actual state — no polling beyond
   // what updateContent already does on every hass state change.
   _checkAppleTVKeyboard(isAppleTV) {
+    if (this._config?.apple_tv_keyboard && (window.CrowMediaAtvKb ? window.CrowMediaAtvKb.check(this, isAppleTV) : (this._atvKbLoad ||= crowMediaLoad('atvkb').then(() => this._checkAppleTVKeyboard(this._isAppleTV), () => {}), false))) return; // fork: crow-media-atv-keyboard.js
     if (!isAppleTV || this._config?.atv_keyboard_panel === false || !this._remoteMode) { this._hideAppleTVKeyboardPanel(); return; }
     const entityId = this._entity;
     const cached = this._atvKeyboardInfoCache?.[entityId];

@@ -23,6 +23,24 @@ Each video is looked up once (each lookup costs 100 units of the YouTube Data AP
 picture from the player always wins. Without the `rest_command`, or if a lookup fails, the card behaves
 exactly like the original.
 
+## What the fork adds: the Apple TV keyboard everywhere
+
+Upstream already has an **Apple TV Keyboard** panel (`atv_keyboard_panel`, on by default), but only in the
+remote view. With `apple_tv_keyboard: true` (or **Apple TV Keyboard Everywhere** in the card editor):
+
+- the panel also opens in the full view whenever the TV has a text field open, and closes when it doesn't;
+- the compact view gets a small keyboard button instead, which also appears after you close the panel;
+- a **Clear** button calls `apple_tv.clear_keyboard_text`;
+- with `keyboard_live` (on unless set to `false`; **Live Typing** in the editor), the TV updates as you type:
+  about 300 ms after you stop, the whole field is sent with `apple_tv.set_keyboard_text`. Enter and Send
+  still send straight away.
+
+Everything is found from the selected player: the `binary_sensor` on the same device ending in
+`_keyboard_focus` (or with the `keyboard_focus` translation key), and the config entry from the device, or
+from the entity registry when the device belongs to more than one. With no such sensor nothing changes.
+If the lookup fails, upstream's own panel takes over as before. An iPhone or iPad only raises its
+keyboard after a tap, so when the panel opens on its own, tap the field once (the compact button does both).
+
 ## How main is built
 
 `main` is always:
@@ -87,10 +105,12 @@ side), `git add` it, and let the workflow rebuild it.
 
 | File | Change |
 | --- | --- |
-| `source/crow-media-youtube.js` | new: the whole feature |
-| `source/crow-media-player-card.js` | one line at the top of `set hass`, one entry in `CROW_MEDIA_FILES` |
-| `source/crow-media-editor.js` | the "YouTube Artwork" toggle under "iTunes Artwork Fallback" |
-| `custom_components/crow_media_player/const.py` | one entry in `LAZY_FILES` |
+| `source/crow-media-youtube.js` | new: the whole YouTube artwork feature |
+| `source/crow-media-atv-keyboard.js` | new: the whole Apple TV keyboard feature |
+| `source/crow-media-player-card.js` | one line at the top of `set hass`, one at the top of `_checkAppleTVKeyboard`, two entries in `CROW_MEDIA_FILES` |
+| `source/crow-media-editor.js` | the "YouTube Artwork" toggle under "iTunes Artwork Fallback"; "Apple TV Keyboard Everywhere" and "Live Typing" under "Apple TV Keyboard Panel" |
+| `custom_components/crow_media_player/const.py` | two entries in `LAZY_FILES` |
 | `README.md`, `info.md` | none in the patches; the build commit adds `FORK.md` under the title |
 
-All of these are marked `fork:` except the editor toggle, which is found by its `youtube_artwork` id.
+All of these are marked `fork:` except the editor toggles, which are found by their ids (`youtube_artwork`,
+`apple_tv_keyboard`, `keyboard_live`).

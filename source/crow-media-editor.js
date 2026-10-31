@@ -1087,6 +1087,20 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
                 </div>
 <div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
                   <div style="flex:1;">
+                    <div class="toggle-label">Apple TV Keyboard Everywhere</div>
+                    <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Shows the keyboard panel in the full view too, not just the remote, and a keyboard button in the compact view. Adds a Clear button. Off by default.</div>
+                  </div>
+                  <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="apple_tv_keyboard"><span class="toggle-track"></span></label>
+                </div>
+<div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
+                  <div style="flex:1;">
+                    <div class="toggle-label">Live Typing</div>
+                    <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">With Apple TV Keyboard Everywhere on: the TV updates as you type, without pressing Send.</div>
+                  </div>
+                  <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="keyboard_live" checked><span class="toggle-track"></span></label>
+                </div>
+<div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
+                  <div style="flex:1;">
                     <div class="toggle-label">Apps Button</div>
                     <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Adds Apps to the Apple TV remote and Open App to the quick menu: a grid of the Apple TV's apps, most used first. Shows only when the Apple TV shares its app list (Home Assistant 2026.7 or later on tvOS 26).</div>
                   </div>
@@ -3773,6 +3787,10 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
       atvKeyboardPanelEl.checked = this._config?.atv_keyboard_panel !== false;
       atvKeyboardPanelEl.onchange = (e) => this._updateConfig('atv_keyboard_panel', e.target.checked);
     }
+    const atvKbEl = root.getElementById('apple_tv_keyboard');
+    if (atvKbEl) { atvKbEl.checked = this._config?.apple_tv_keyboard === true; atvKbEl.onchange = (e) => this._updateConfig('apple_tv_keyboard', e.target.checked); }
+    const kbLiveEl = root.getElementById('keyboard_live');
+    if (kbLiveEl) { kbLiveEl.checked = this._config?.keyboard_live !== false; kbLiveEl.onchange = (e) => this._updateConfig('keyboard_live', e.target.checked); }
     const atvAppsBtnEl = root.getElementById('atv_apps_button');
     if (atvAppsBtnEl) {
       atvAppsBtnEl.checked = this._config?.atv_apps_button !== false;

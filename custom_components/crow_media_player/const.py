@@ -18,6 +18,7 @@ LAZY_FILES = {
     "library": "crow-media-library.js",
     "sendspin": "crow-media-sendspin.js",
     "youtube": "crow-media-youtube.js",  # fork: YouTube artwork
+    "atvkb": "crow-media-atv-keyboard.js",  # fork: Apple TV keyboard
 }
 
 STORAGE_VERSION = 1
