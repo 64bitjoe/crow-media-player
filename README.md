@@ -1,5 +1,17 @@
 # Crow Media Player
 
+> **This is a fork. All credit goes to the original author.** Crow Media Player, the integration and the card, is
+> made by [James McGinnis](https://github.com/jamesmcginnis). Please star, support and report issues at the original:
+> [jamesmcginnis/crow-media-player](https://github.com/jamesmcginnis/crow-media-player).
+>
+> This fork, [64bitjoe/crow-media-player](https://github.com/64bitjoe/crow-media-player), only adds an optional
+> YouTube artwork fallback (`youtube_artwork: true`) and otherwise follows upstream automatically. Its releases are
+> tagged `v<upstream version>-yt.<n>`. To install the fork, add `https://github.com/64bitjoe/crow-media-player` to
+> HACS as a custom **Integration** repository instead of the original. Setup and how the fork is kept in step:
+> [SYNC.md](https://github.com/64bitjoe/crow-media-player/blob/main/SYNC.md). Only problems with the YouTube
+> artwork belong in [this fork's issues](https://github.com/64bitjoe/crow-media-player/issues); everything else
+> goes to the original.
+
 Crow Media Player is a Home Assistant integration and Lovelace card for your speakers and TVs. The card is an iPhone-style media player with deep Music Assistant support, synced lyrics, AI track and film information, a library with podcasts, radio and audiobooks, Listening Recaps, PDF exports, a screensaver, a visualiser and an Apple TV remote. The integration runs alongside it on your Home Assistant server: it keeps everyone's pins, history and settings in Home Assistant, records what the house listens to even when no dashboard is open, runs the sleep timer and wake-up alarms, fetches outside services for the card and adds sensors and actions for your automations.
 
 > **One download installs both.** The card is bundled inside the integration and is loaded into your dashboards automatically, so there's no separate resource to add.
