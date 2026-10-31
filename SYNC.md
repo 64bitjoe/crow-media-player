@@ -6,9 +6,10 @@ and all credit for it goes to the original project. This fork changes as little 
 
 ## What the fork adds: YouTube artwork
 
-An Apple TV playing the YouTube app reports the title and channel, but no picture. With `youtube_artwork: true`
-on the card (or **YouTube Artwork** in the card editor, under iTunes Artwork Fallback), the card looks the
-video up through a `rest_command` in Home Assistant and shows its thumbnail. The API key stays in Home Assistant.
+An Apple TV playing the YouTube app reports the title and channel, but no picture. The card looks the video
+up through a `rest_command` in Home Assistant and shows its thumbnail, the largest there is (maxres, then
+standard, high, medium). It's on by default; turn it off with `youtube_artwork: false` or **YouTube Artwork**
+in the card editor (under the Apple TV keyboard toggles). The API key stays in Home Assistant.
 
 ```yaml
 rest_command:
@@ -20,8 +21,8 @@ rest_command:
 ```
 
 Each video is looked up once (each lookup costs 100 units of the YouTube Data API's 10,000 a day). A real
-picture from the player always wins. Without the `rest_command`, or if a lookup fails, the card behaves
-exactly like the original.
+picture from the player always wins. Turned off, without the `rest_command`, or if a lookup fails, the card
+behaves exactly like the original.
 
 ## What the fork adds: the Apple TV keyboard everywhere
 
@@ -108,7 +109,7 @@ side), `git add` it, and let the workflow rebuild it.
 | `source/crow-media-youtube.js` | new: the whole YouTube artwork feature |
 | `source/crow-media-atv-keyboard.js` | new: the whole Apple TV keyboard feature |
 | `source/crow-media-player-card.js` | one line at the top of `set hass`, one at the top of `_checkAppleTVKeyboard`, two entries in `CROW_MEDIA_FILES` |
-| `source/crow-media-editor.js` | the "YouTube Artwork" toggle under "iTunes Artwork Fallback"; "Apple TV Keyboard Everywhere" and "Live Typing" under "Apple TV Keyboard Panel" |
+| `source/crow-media-editor.js` | "Apple TV Keyboard Everywhere", "Live Typing" and "YouTube Artwork" under "Apple TV Keyboard Panel" |
 | `custom_components/crow_media_player/const.py` | two entries in `LAZY_FILES` |
 | `README.md`, `info.md` | none in the patches; the build commit adds `FORK.md` under the title |
 

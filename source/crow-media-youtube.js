@@ -1,7 +1,7 @@
 /*
  * Crow Media Player — YouTube artwork (fork addition, not part of upstream)
- * An Apple TV playing the YouTube app reports the video's title and channel but no picture. With the card
- * option `youtube_artwork: true`, this looks the video up through a rest_command in Home Assistant (so the
+ * An Apple TV playing the YouTube app reports the video's title and channel but no picture. Unless the card
+ * has `youtube_artwork: false`, this looks the video up through a rest_command in Home Assistant (so the
  * API key stays on the server) and hands the card a copy of hass with entity_picture filled in. Every place
  * the card shows artwork reads hass, so none of them need changing.
  * Needs, in Home Assistant:
@@ -11,7 +11,7 @@
  *       method: GET
  *       headers:
  *         X-goog-api-key: !secret youtube_api_key
- * Anything missing or failing: the card gets hass untouched and behaves exactly as upstream.
+ * Turned off, or anything missing or failing: the card gets hass untouched and behaves exactly as upstream.
  */
 (() => {
 'use strict';
@@ -38,7 +38,8 @@ function wanted(a) {
 function thumb(res) {
   const item = (res?.response ?? res)?.content?.items?.[0];
   const t = item?.snippet?.thumbnails;
-  const url = t?.high?.url || t?.medium?.url || t?.default?.url;
+  // biggest first: maxres (1280x720) isn't there for every video
+  const url = t?.maxres?.url || t?.standard?.url || t?.high?.url || t?.medium?.url || t?.default?.url;
   if (url) return String(url).replace(/^http:\/\//i, 'https://');
   const id = item?.id?.videoId;
   return id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/hqdefault.jpg' : '';
@@ -81,6 +82,8 @@ function ids(card) {
 function wrap(card, hass) {
   try {
     hass = raws.get(hass) || hass;
+    // turned off: nothing looked up, nothing changed
+    if (card._config?.youtube_artwork === false) { cards.delete(card); wraps.delete(card); return hass; }
     const states = hass?.states;
     if (!states) return hass;
     cards.add(card);

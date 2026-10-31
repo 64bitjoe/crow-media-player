@@ -3,7 +3,7 @@
 > [jamesmcginnis/crow-media-player](https://github.com/jamesmcginnis/crow-media-player).
 >
 > This fork, [64bitjoe/crow-media-player](https://github.com/64bitjoe/crow-media-player), only adds two optional
-> extras, a YouTube artwork fallback (`youtube_artwork: true`) and the Apple TV keyboard in every view with live
+> extras, a YouTube artwork fallback (on unless `youtube_artwork: false`) and the Apple TV keyboard in every view with live
 > typing (`apple_tv_keyboard: true`), and otherwise follows upstream automatically. Its releases are
 > tagged `v<upstream version>-yt.<n>`. To install the fork, add `https://github.com/64bitjoe/crow-media-player` to
 > HACS as a custom **Integration** repository instead of the original. Setup and how the fork is kept in step:

@@ -2654,7 +2654,7 @@ class CrowMediaPlayerCard extends HTMLElement {
   }
 
   set hass(hass) {
-    if (this._config?.youtube_artwork) hass = window.CrowMediaYouTube?.wrap(this, hass) ?? (this._ytLoad ||= crowMediaLoad('youtube').then(() => { if (this._hass) this.hass = this._hass; }, () => {}), hass); // fork: crow-media-youtube.js
+    if (this._config && this._config.youtube_artwork !== false) hass = window.CrowMediaYouTube?.wrap(this, hass) ?? (this._ytLoad ||= crowMediaLoad('youtube').then(() => { if (this._hass) this.hass = this._hass; }, () => {}), hass); // fork: crow-media-youtube.js
     // Keep the working spinner on for as long as a job (e.g. a vibe) is still running.
     if ((this._busyJobs || 0) > 0) this.shadowRoot?.getElementById('cardOuter')?.classList.add('crow-busy');
     if (this._loadingFrom) setTimeout(() => this._checkLoadingToast(), 0);

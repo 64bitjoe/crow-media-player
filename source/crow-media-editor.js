@@ -1101,6 +1101,13 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
                 </div>
 <div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
                   <div style="flex:1;">
+                    <div class="toggle-label">YouTube Artwork</div>
+                    <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Shows a thumbnail for YouTube videos that have no picture, such as the YouTube app on an Apple TV. Needs the youtube_search rest_command in Home Assistant; without it this does nothing.</div>
+                  </div>
+                  <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="youtube_artwork" checked><span class="toggle-track"></span></label>
+                </div>
+<div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
+                  <div style="flex:1;">
                     <div class="toggle-label">Apps Button</div>
                     <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Adds Apps to the Apple TV remote and Open App to the quick menu: a grid of the Apple TV's apps, most used first. Shows only when the Apple TV shares its app list (Home Assistant 2026.7 or later on tvOS 26).</div>
                   </div>
@@ -1120,13 +1127,6 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
                     <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Looks up album art on iTunes whenever a track has none.</div>
                   </div>
                   <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="itunes_art" checked><span class="toggle-track"></span></label>
-                </div>
-<div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
-                  <div style="flex:1;">
-                    <div class="toggle-label">YouTube Artwork</div>
-                    <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Looks up a thumbnail for YouTube videos that have no picture. Needs the youtube_search rest_command in Home Assistant. Off by default.</div>
-                  </div>
-                  <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="youtube_artwork"><span class="toggle-track"></span></label>
                 </div>
 <div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
                   <div style="flex:1;">
@@ -3791,6 +3791,8 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
     if (atvKbEl) { atvKbEl.checked = this._config?.apple_tv_keyboard === true; atvKbEl.onchange = (e) => this._updateConfig('apple_tv_keyboard', e.target.checked); }
     const kbLiveEl = root.getElementById('keyboard_live');
     if (kbLiveEl) { kbLiveEl.checked = this._config?.keyboard_live !== false; kbLiveEl.onchange = (e) => this._updateConfig('keyboard_live', e.target.checked); }
+    const ytArtEl = root.getElementById('youtube_artwork');
+    if (ytArtEl) { ytArtEl.checked = this._config?.youtube_artwork !== false; ytArtEl.onchange = (e) => this._updateConfig('youtube_artwork', e.target.checked); }
     const atvAppsBtnEl = root.getElementById('atv_apps_button');
     if (atvAppsBtnEl) {
       atvAppsBtnEl.checked = this._config?.atv_apps_button !== false;
@@ -3876,8 +3878,6 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
       itunesArtEl.checked = this._config?.itunes_art !== false;
       itunesArtEl.onchange = (e) => this._updateConfig('itunes_art', e.target.checked);
     }
-    const ytArtEl = root.getElementById('youtube_artwork');
-    if (ytArtEl) { ytArtEl.checked = this._config?.youtube_artwork === true; ytArtEl.onchange = (e) => this._updateConfig('youtube_artwork', e.target.checked); }
 
     const volumeHudGlassEl = root.getElementById('volume_hud_glass');
     if (volumeHudGlassEl) {
