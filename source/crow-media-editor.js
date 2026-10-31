@@ -1109,6 +1109,13 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
                 </div>
 <div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
                   <div style="flex:1;">
+                    <div class="toggle-label">YouTube Artwork</div>
+                    <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Looks up a thumbnail for YouTube videos that have no picture. Needs the youtube_search rest_command in Home Assistant. Off by default.</div>
+                  </div>
+                  <label class="toggle-switch" style="flex-shrink:0;margin-top:2px;"><input type="checkbox" id="youtube_artwork"><span class="toggle-track"></span></label>
+                </div>
+<div class="toggle-item" style="align-items:flex-start;gap:12px;padding:10px 0;">
+                  <div style="flex:1;">
                     <div class="toggle-label">Show Vibe</div>
                     <div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">Adds the Vibe option to the menus so you can start a mood or genre queue. Needs Music Assistant. Off by default.</div>
                   </div>
@@ -3851,6 +3858,8 @@ class CrowMediaPlayerCardEditor extends HTMLElement {
       itunesArtEl.checked = this._config?.itunes_art !== false;
       itunesArtEl.onchange = (e) => this._updateConfig('itunes_art', e.target.checked);
     }
+    const ytArtEl = root.getElementById('youtube_artwork');
+    if (ytArtEl) { ytArtEl.checked = this._config?.youtube_artwork === true; ytArtEl.onchange = (e) => this._updateConfig('youtube_artwork', e.target.checked); }
 
     const volumeHudGlassEl = root.getElementById('volume_hud_glass');
     if (volumeHudGlassEl) {

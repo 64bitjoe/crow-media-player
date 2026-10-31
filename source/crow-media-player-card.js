@@ -155,7 +155,8 @@ function crowMediaRelays() { return crowMediaBridge.on ? [] : CROW_MEDIA_RELAYS;
 // the files the card loads when a feature is first used
 const CROW_MEDIA_BASE = (() => { try { return new URL('.', document.currentScript.src).href; } catch (_) { return '/' + CROW_MEDIA_DOMAIN + '/'; } })();
 const CROW_MEDIA_FILES = { editor: 'crow-media-editor.js', fullscreen: 'crow-media-fullscreen.js', pdf: 'crow-media-pdf.js', saver: 'crow-media-screensaver.js', viz: 'crow-media-visualiser.js',
-  video: 'crow-media-video.js', panels: 'crow-media-panels.js', library: 'crow-media-library.js', sendspin: 'crow-media-sendspin.js' };
+  video: 'crow-media-video.js', panels: 'crow-media-panels.js', library: 'crow-media-library.js', sendspin: 'crow-media-sendspin.js',
+  youtube: 'crow-media-youtube.js' }; // fork: youtube
 function crowMediaLoad(mod) {
   const loads = window.__crowMediaLoads || (window.__crowMediaLoads = {});
   if (window.CrowMediaKit?.ready?.[mod]) return Promise.resolve();
@@ -2652,6 +2653,7 @@ class CrowMediaPlayerCard extends HTMLElement {
   }
 
   set hass(hass) {
+    if (this._config?.youtube_artwork) hass = window.CrowMediaYouTube?.wrap(this, hass) ?? (this._ytLoad ||= crowMediaLoad('youtube').then(() => { if (this._hass) this.hass = this._hass; }, () => {}), hass); // fork: crow-media-youtube.js
     // Keep the working spinner on for as long as a job (e.g. a vibe) is still running.
     if ((this._busyJobs || 0) > 0) this.shadowRoot?.getElementById('cardOuter')?.classList.add('crow-busy');
     if (this._loadingFrom) setTimeout(() => this._checkLoadingToast(), 0);

@@ -17,6 +17,7 @@ LAZY_FILES = {
     "panels": "crow-media-panels.js",
     "library": "crow-media-library.js",
     "sendspin": "crow-media-sendspin.js",
+    "youtube": "crow-media-youtube.js",  # fork: YouTube artwork
 }
 
 STORAGE_VERSION = 1
