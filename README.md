@@ -1,7 +1,7 @@
 # Crow Media Player
 
 > **This is a fork. All credit goes to the original author.** Crow Media Player, the integration and the card, is
-> made by [James McGinnis](https://github.com/jamesmcginnis). Please star, support and report issues at the original:
+> made by [James McGinnis](https://github.com/jamesmcginnis). Please star, support the original:
 > [jamesmcginnis/crow-media-player](https://github.com/jamesmcginnis/crow-media-player).
 >
 > This fork, [64bitjoe/crow-media-player](https://github.com/64bitjoe/crow-media-player), only adds two optional
